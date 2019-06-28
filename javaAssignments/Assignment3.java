@@ -14,7 +14,7 @@ class Ping
         String pingLink=args[1];
         String cmd = "ping -c"+ numberOfPac + " " + pingLink;
 
-        //running system ping system utility
+        //running ping system utility
         Runtime run = Runtime.getRuntime();
         Process pr = run.exec(cmd);
         pr.waitFor();
