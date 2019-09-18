@@ -5,51 +5,51 @@ class KYC
 {
     public static void main(String args[])throws IOException
     {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-        int test = Integer.parseInt(br.readLine());
+        BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        int test = Integer.parseInt(buffer.readLine());
         while(test>0)
         {
             test--;
-            String input[] = br.readLine().split(" ");
-            Calendar c1=Calendar.getInstance();
-            Calendar c2=Calendar.getInstance();
+            String input[] = buffer.readLine().split(" ");
+            Calendar applyTime=Calendar.getInstance();
+            Calendar currentTime=Calendar.getInstance();
             
             
-            int x[]=generateTokenarray(input[0]);
+            int applicationDate[]=generateTokenarray(input[0]);
 
-            c1.set(Calendar.DATE,x[0]);
-            c1.set(Calendar.MONTH,x[1]-1);
-            c1.set(Calendar.YEAR,x[2]);
+            applyTime.set(Calendar.DATE,applicationDate[0]);
+            applyTime.set(Calendar.MONTH,applicationDate[1]-1);
+            applyTime.set(Calendar.YEAR,applicationDate[2]);
 
-            int y[]=generateTokenarray(input[1]);
-            c2.set(Calendar.DATE,y[0]);
-            c2.set(Calendar.MONTH,y[1]-1);
-            c2.set(Calendar.YEAR,y[2]);
-            Date currDate=c2.getTime();
+            int currentDate[]=generateTokenarray(input[1]);
+            currentTime.set(Calendar.DATE,currentDate[0]);
+            currentTime.set(Calendar.MONTH,currentDate[1]-1);
+            currentTime.set(Calendar.YEAR,currentDate[2]);
+
             
-            if(c1.getTime().after(currDate))
-            {
+            if(applyTime.getTime().after(currentTime.getTime())){
                 System.out.println("No range");
                 continue;
             }
-            c1.set(Calendar.YEAR, y[2]);
+            applyTime.set(Calendar.YEAR, currentDate[2]);
 
-            c1.add(Calendar.DATE,-30);
-            System.out.print(df.format(c1.getTime()));
-            c1.add(Calendar.DATE,60);
+            applyTime.add(Calendar.DATE,-30);
+            System.out.print(dateFormat.format(applyTime.getTime()));
+            applyTime.add(Calendar.DATE,60);
             
-            if(c1.getTime().after(currDate)) System.out.println(" "+df.format(currDate));
-            else System.out.println(" "+df.format(c1.getTime()));
+            if(applyTime.getTime().after(currentTime.getTime())) System.out.println(" "+dateFormat.format(currentTime.getTime()));
+            else System.out.println(" "+dateFormat.format(applyTime.getTime()));
         }
     }
 
     public static int[] generateTokenarray(String s){
-        StringTokenizer st = new StringTokenizer(s,"-");
-        int x[]= new int[3];
-        int i=0;
-        while(st.hasMoreTokens())
-            x[i++] = Integer.parseInt(st.nextToken());
-        return x;
+        StringTokenizer tokenizer = new StringTokenizer(s,"-");
+        int dateTokens[]= new int[3];
+        int tokenIndex=0;
+        while(tokenizer.hasMoreTokens())
+            dateTokens[tokenIndex++] = Integer.parseInt(tokenizer.nextToken());
+        return dateTokens;
+        
     }
 }
