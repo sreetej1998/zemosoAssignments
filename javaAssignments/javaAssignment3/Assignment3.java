@@ -15,13 +15,13 @@ class Ping
         System.out.println("enter the link that needs to be pinged");
         String pingLink=sc.next();
         String command = "ping -c"+ numberOfPackets + " " + pingLink;
+        String systemUtilPingOutput = "";
 
         
         Runtime run = Runtime.getRuntime();
         Process process = run.exec(command);
         process.waitFor();
         BufferedReader buffer = new BufferedReader(new InputStreamReader(process.getInputStream()));
-        String systemUtilPingOutput = "";
         buffer.readLine();
 
         //parsing the system output and adding ping values to the array
