@@ -1,5 +1,9 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.regex.Pattern;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 
 class Ping
@@ -35,7 +39,7 @@ class Ping
         if(numberOfPackets%2==1)
             System.out.println("Median :"+responseTime.get(numberOfPackets/2)+" ms");
         else{
-            double avg=(responseTime.get(numberOfPackets/2) + responseTime.get(numberOfPackets/2 + 1))/2;
+            double avg=(responseTime.get(numberOfPackets/2) + responseTime.get(numberOfPackets/2 - 1))/2;
             System.out.println("Median :"+avg+" ms");
         }
     }
