@@ -1,49 +1,51 @@
 import java.io.*;
 import java.util.*;
 import java.util.StringTokenizer;
-//to run this type eg( java Ping 11 google.com )
+
 class Ping
 {
     public static void main(String args[]) throws Exception
     {
-        //array for storing ping values
-        ArrayList<Double> arr= new ArrayList<Double>();
-        //this allows user to type number of packets the want to test on
-        int numberOfPac=Integer.parseInt(args[0]);
-        //this link gets pinged
-        String pingLink=args[1];
-        String cmd = "ping -c"+ numberOfPac + " " + pingLink;
 
-        //running ping system utility
+        Scanner sc= new Scanner(System.in);
+        ArrayList<Double> responseTime= new ArrayList<Double>();
+   
+        System.out.println("enter the number of packets that median needs to be found");
+        int numberOfPackets=sc.nextInt();
+        System.out.println("enter the link that needs to be pinged");
+        String pingLink=sc.next();
+        String command = "ping -c"+ numberOfPackets + " " + pingLink;
+
+        
         Runtime run = Runtime.getRuntime();
-        Process pr = run.exec(cmd);
-        pr.waitFor();
-        BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
-        String line = "";
-        buf.readLine();
+        Process process = run.exec(command);
+        process.waitFor();
+        BufferedReader buffer = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        String systemUtilPingOutput = "";
+        buffer.readLine();
 
-        //parsing the system output and adding ping values
-        while ((line=buf.readLine())!=null) {
-            if(line.split(" ").length==9)
-            arr.add(parseNum(line));
+        //parsing the system output and adding ping values to the array
+        while ((systemUtilPingOutput=buffer.readLine())!=null) {
+            if(systemUtilPingOutput.split(" ").length==9)
+            responseTime.add(parsePingOutput(systemUtilPingOutput));
         }
 
         //calculatng the medium
-        Collections.sort(arr);
-        if(numberOfPac%2==1)
-            System.out.println("Median :"+arr.get(numberOfPac/2)+" ms");
+        Collections.sort(responseTime);
+        if(numberOfPackets%2==1)
+            System.out.println("Median :"+responseTime.get(numberOfPackets/2)+" ms");
         else{
-            double avg=(arr.get(numberOfPac/2) + arr.get(numberOfPac/2 + 1))/2;
+            double avg=(responseTime.get(numberOfPackets/2) + responseTime.get(numberOfPackets/2 + 1))/2;
             System.out.println("Median :"+avg+" ms");
         }
     }
 
-    // takes line and returns the number after parsing
-    public static double parseNum(String line)
+   
+    public static double parsePingOutput(String line)
     {
         String s[]=line.split(" ");
-        double num=Double.parseDouble(s[7].substring(5,s[7].length()));
-        return num; 
+        double responseTime=Double.parseDouble(s[7].substring(5,s[7].length()));
+        return responseTime; 
 
     }
 }
