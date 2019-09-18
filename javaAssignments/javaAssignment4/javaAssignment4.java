@@ -7,13 +7,11 @@ import java.util.Date;
 import java.util.StringTokenizer;
 class KYC
 {
-    public static void main(String args[])throws IOException
-    {
+    public static void main(String args[])throws IOException{
         BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         int test = Integer.parseInt(buffer.readLine());
-        while(test>0)
-        {
+        while(test>0){
             test--;
             String input[] = buffer.readLine().split(" ");
             Calendar applyTime=Calendar.getInstance();
