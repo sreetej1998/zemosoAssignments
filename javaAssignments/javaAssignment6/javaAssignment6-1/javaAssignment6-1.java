@@ -3,13 +3,13 @@ import java.util.*;
 class Vampire
 {
 	public static void main(String[] args) {
-        int count=0;
-        int f=0;
-		for(int i=1260;count!=100;i++){
-			if(Integer.toString(i).length()%2==0){
-            f=checkVampire(i);
-            if(f==1)
-            count++;}
+        int vampireCount=0;
+        boolean isVampire=false;
+		for(int i=1260;vampireCount!=100;i++){
+		  if(Integer.toString(i).length()%2==0){
+                    isVampire=checkVampire(i);
+			 if(isVampire)
+			    vampireCount++;}
 		}
 	}
 	
@@ -44,7 +44,7 @@ class Vampire
 	    return Integer.parseInt(a);
     }
     
-    public static int checkVampire(int num){
+    public static boolean checkVampire(int num){
         HashMap<Character,Integer> map;
 		String numString=Integer.toString(num);
 		map=insertMap(numString);
@@ -64,10 +64,10 @@ class Vampire
 				
 				if(equate(testMap,map)){
 					System.out.println(num+"  "+factorA+ " "+factorB);
-					return 1;	
+					return true;	
 				}
 			}
 	}
-	return 0;
+	return false;
 }
 }
